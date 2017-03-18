@@ -1,9 +1,10 @@
-# Bootstrap salt
-curl -L https://bootstrap.saltstack.com -o bootstrap_salt.sh
-sudo sh bootstrap_salt.sh
+# Install Salt minion
+curl -L https://bootstrap.saltstack.com -o install_salt.sh
+sudo sh install_salt.sh
+# service salt-minion status
 
-# tell minion to use local files for config
- sed -i '/#file_client: remote/c\file_client: local' /etc/salt/minion
+# Add salt master to hosts file
+sed -i '/salt/d' /etc/hosts
+echo '192.168.2.2 salt' >> /etc/hosts
 
-# apply salt state
-salt-call --local state.apply -l debug
+apt-get install htop -y

@@ -9,15 +9,16 @@ Vagrant.configure(2) do |config|
 
     # Create the Jenkins VM
     config.vm.define "jenkins" do |jenkins|
-        jenkins.vm.hostname = "jenkins"
+        jenkins.vm.hostname = "salt"
         jenkins.vm.box = "ubuntu/trusty64"
         jenkins.vm.network "private_network", ip: "192.168.2.2", :adapter => 2
 
         # mount directories
-        jenkins.vm.synced_folder "./srv/jenkins", "/srv/"
+        jenkins.vm.synced_folder "./provision", "/srv/provision"
+        jenkins.vm.synced_folder "../salt", "/srv/salt"
+
 
         # mount links git folder for now
-        # this is kind of risky
         jenkins.vm.synced_folder "../web/links", "/var/links"
 
         # bootstrap salt
